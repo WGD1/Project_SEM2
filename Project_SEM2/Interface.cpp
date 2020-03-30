@@ -35,19 +35,19 @@ void DrawMenu(int width, char drawChar)
 	cout << "\t\t\t3: End Game\n\n";
 	cout << firstAndLastRow << endl;
 }
-/*
+
 void OnePlayerGame()
 {	
 	cout << "\tYou Selected One Player Game\n" << endl;
-	Team PlayerOne;
-	Team PlayerTwo("AI PLayer");
+	Game::Get().getPlayers(1).SetTeamName("AI Player");
+	
 	string name, NumPlayers;
 	int NumberOfPlayers = 0, gameType=0;
+
 	cout << "\tPlease enter Player ones Name: ";
 	cin >> name;
-	PlayerOne.SetTeamName(name);
-	//Game::Get().getPlayerOne().SetTeamName(name); // This is throwing and error and see the issue need to look at it further 
-	//Game::Get().getPlayerTwo().SetTeamName("AI Player");
+	Game::Get().getPlayers(0).SetTeamName(name);
+	system("CLS"); // This will clear the screen ready for the game to being !
 	cout << "Please select a Game Type \n\t1:Number of Goals Game \n\t 2:Timed Game" << endl;
 	cin >> gameType;
 	if (gameType == 1)
@@ -56,7 +56,8 @@ void OnePlayerGame()
 		cout << "\tYou selected Number Of Goals\n";
 		cout << "\t How many goals would you like to play to?";
 		cin >> NumGoals;
-		//Game::Get().set_goals_to_win(NumGoals);
+		Game::Get().set_goals_to_win(NumGoals);
+		Game::Get().set_time_to_win(-1);
 	}
 	else
 	{
@@ -64,68 +65,48 @@ void OnePlayerGame()
 		cout << "\tYou selected a timed game\n";
 		cout << "\tHow long would you like the game to last?(mins):";
 		cin >> time;
+		Game::Get().set_goals_to_win(-1);
+		Game::Get().set_time_to_win(time);
 	}
 
-	cout << "\tPlease enter the Number of Players on each team \n";
-	cin >> NumPlayers;
-	while (set_if_valid_number(NumPlayers, NumberOfPlayers) != 1) //currently having an error when letter and numbers are mixed 
+	do
 	{
-		cout << "You must enter just numbers and not letters\n ";
+		cout << "\tPlease enter the Number of Players on each team (Between 3 & 11) \n";
 		cin >> NumPlayers;
-	}
-	PlayerOne.SetNumPlayers(NumberOfPlayers);
-	PlayerTwo.SetNumPlayers(NumberOfPlayers);
-	//Game::Get().getPlayerOne().SetNumPlayers(NumberOfPlayers);
-	//Game::Get().getPlayerTwo().SetNumPlayers(NumberOfPlayers);
+		while (set_if_valid_number(NumPlayers, NumberOfPlayers) != 1) //currently having an error when letter and numbers are mixed 
+		{
+			cout << "You must enter just numbers and not letters\n ";
+			cin >> NumPlayers;
+		}
+		Game::Get().getPlayers(0).SetNumPlayers(NumberOfPlayers);
+		Game::Get().getPlayers(1).SetNumPlayers(NumberOfPlayers);
+	} while (Game::Get().getPlayers(0).SetNumPlayers(NumberOfPlayers)!=1);
 
 	for (int i = 0; i < NumberOfPlayers; i++)
 	{
 		int num = 0;
 		cout << "\tPlease enter a prime Nnmber\n ";
 		cin >> num;
-		while (PlayerOne.getPrimeNumber().CheckPrimeNumber(num) != 1)
+		while (Game::Get().getPlayers(0).getPrimeNumber().CheckPrimeNumber(num) != 1)
 		{
 			cout << num << "\tIs not a prime Number ... Please enter a prime Number\n";
 			cin >> num;
 		}
-		PlayerOne.SetPlayers(num);
-		int n= PlayerTwo.getPrimeNumber().RandomPrimeNumber(); // Generates a random number for the AI PLayer 
-		PlayerTwo.SetPlayers(n);
+		Game::Get().getPlayers(0).SetPlayers(num);
+		int n= Game::Get().getPlayers(1).getPrimeNumber().RandomPrimeNumber(); // Generates a random number for the AI PLayer 
+		Game::Get().getPlayers(1).SetPlayers(n);
 	}
 
 	system("CLS"); // This will clear the screen ready for the game to being !
 	
-
-	cout << "\t\t\t\tPlayer Ones name: " << PlayerOne.GetTeamName() << "\t\t\t\tPlayer Twos name: " << PlayerTwo.GetTeamName() << endl<<endl;
-	if (gameType == 1)
-	{
-		cout << "\t\t\t\t\t\t\t Goals to win:\n\n\n";
-	}
-	else
-	{
-		cout << "\t\t\t\t\t\t\t Time:\n\n\n";
-	}
-	cout << " Number of players on the Team.. " << PlayerOne.GetNumPlayers() << endl;
-	for (int a = 0; a << PlayerOne.GetPlayers().size(); a++)
-	{
-		cout << PlayerOne.GetPlayers().at(a)<<" ";
-	}
-
-	cout << "Player Twos name:" << PlayerTwo.GetTeamName() << endl;
-	cout << " Number of players on the Team.. " << PlayerTwo.GetNumPlayers() << endl;
-	for (int a = 0; a < PlayerTwo.GetPlayers().size(); a++)
-	{
-		cout << PlayerTwo.GetPlayers().at(a) << " ";
-	}
 }
-*/
+
 void TwoPlayerGame()
 {
-
 	cout << "\t\tYou Selected A Two Player Game\n\n" << endl;
 	//Team PlayerOne, PlayerTwo; // Creates two instances of team 
-
 	string Temp;
+
 	int NumberOfPlayers = 0, gameType = 0;
 	for (int i = 0; i < 2; i++) {
 		cout << "\t\tPlease enter Players " << i + 1 << " Name\n\n";
@@ -133,15 +114,24 @@ void TwoPlayerGame()
 		Game::Get().getPlayers(i).SetTeamName(Temp);
 	}
 
-	cout << "\t\tPlease enter the Number of Players on each team \n\n";
-	cin >> Temp;
-	while (set_if_valid_number(Temp, NumberOfPlayers) != 1)
+	do
 	{
-		cout << "\t\tYou must enter just numbers and not letters\n\n ";
+		cout << "\t\tPlease enter the Number of Players on each team \n\n";
 		cin >> Temp;
-	}
-	Game::Get().getPlayers(0).SetNumPlayers(stoi(Temp));
-	Game::Get().getPlayers(1).SetNumPlayers(stoi(Temp));
+		while (set_if_valid_number(Temp, NumberOfPlayers) != 1) // Still throwing an error when a letter entered unsure why
+		{
+			cout << "\t\tYou must enter just numbers and not letters\n\n ";
+			cin >> Temp;
+
+		}// want to check range of numbers that the player has entered 
+
+		
+		Game::Get().getPlayers(0).SetNumPlayers(NumberOfPlayers); //Changed this to use the NumberOfPLayers as the Set_if vaild has refernce  in it
+		Game::Get().getPlayers(1).SetNumPlayers(NumberOfPlayers);
+	} while (Game::Get().getPlayers(0).SetNumPlayers(NumberOfPlayers)!=1);
+	
+	 
+
 
 	for (int i = 0; i < 2; i++) {
 
@@ -183,7 +173,6 @@ void TwoPlayerGame()
 		Game::Get().set_goals_to_win(-1);
 		Game::Get().set_time_to_win(time);
 	}
-
 
 	system("CLS");
 
@@ -254,14 +243,5 @@ void TwoPlayerGame()
 	}
 
 		}
-
-
-
-	
-
-
-
-
-
 
 		

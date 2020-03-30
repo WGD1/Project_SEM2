@@ -5,9 +5,7 @@ Game& Game::Get()
 	return Instance;
 }
 
-
 Game Game::Instance;
-
 
 void Game::timer()
 {
@@ -19,7 +17,6 @@ bool Game::coin_toss() {
 	return Randomiser(0, 1);
 }
 
-
 void Game::switch_possesion()
 {
 	Game::possesion = !Game::possesion;
@@ -29,7 +26,6 @@ int Game::get_remainder(bool player, int choice)
 {
 	return Game::getPlayers(player).GetPlayers(choice)% Dice::Get().getDividor();
 }
-
 
 bool Game::tackle(int p1, int p2, int diceroll)
 {
@@ -45,11 +41,8 @@ bool Game::tackle(int p1, int p2, int diceroll)
 		 defender = 0;
 		swap(p1, p2);
 
-
 	}
-
 	
-
 	if (diceroll < 4) {
 		if (Game::get_remainder(attacker,p1) >= Game::get_remainder(defender, p2)) {
 			return true;
@@ -68,7 +61,6 @@ bool Game::tackle(int p1, int p2, int diceroll)
 
 	}
 	
-
 }
 
 void Game::set_time_to_win(int num)

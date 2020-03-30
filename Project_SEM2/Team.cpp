@@ -36,10 +36,18 @@ string Team::GetTeamName()
 {
 	return this->teamName;
 }
-void Team::SetNumPlayers(int numPlayers)
+bool Team::SetNumPlayers(int numPlayers)
 {
+	if (numPlayers < 3 || numPlayers >11)
+	{
+		return false;
+	}
+	else
+	{
+		this->numPlayers = numPlayers;
+		return true;
+	}
 	
-	this->numPlayers = numPlayers;
 }
 
 int Team::GetNumPlayers()
@@ -50,7 +58,7 @@ Prime_Number Team::getPrimeNumber()
 {
 	return this->PrimeNumber;
 }
- int Team::GetPlayers(int num)
+int Team::GetPlayers(int num)
 {
 	return this->Players[num];
 }

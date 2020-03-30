@@ -23,7 +23,7 @@ int main()
 	{
 	case 1:
 	{
-		//OnePlayerGame();
+		OnePlayerGame();
 		break;
 	}
 	case 2:

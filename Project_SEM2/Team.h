@@ -8,7 +8,7 @@ class Team
 private:
 	Prime_Number PrimeNumber;
 	string teamName;
-	vector <int> Players;
+	vector <int> Players; 
 	int numPlayers;
 	int Goals;
 	int playerNumber;
@@ -19,10 +19,10 @@ public:
 
 	void SetTeamName(string);
 	string GetTeamName();
-	void SetNumPlayers(int);
+	bool SetNumPlayers(int);
 	int GetNumPlayers();
 	Prime_Number getPrimeNumber();
-		int GetPlayers(int);
+	int GetPlayers(int);
 	void  SetPlayers(int);
 	void SetGoals();
 	int GetGoals();
