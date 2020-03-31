@@ -63,7 +63,7 @@ void OnePlayerGame()
 	{
 		int time = 0;
 		cout << "\tYou selected a timed game\n";
-		cout << "\tHow long would you like the game to last?(mins):";
+		cout << "\tHow long would you like the game to last?(mins):";//
 		cin >> time;
 		Game::Get().set_goals_to_win(-1);
 		Game::Get().set_time_to_win(time);

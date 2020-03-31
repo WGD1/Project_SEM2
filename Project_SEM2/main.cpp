@@ -15,7 +15,7 @@ int main()
 {
 	
 	DrawHeader();
-	int choice;
+	int choice;//
 	DrawMenu(180, '*');
 	cout << "Please select an option:";
 	cin >> choice;

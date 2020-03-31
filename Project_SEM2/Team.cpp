@@ -15,7 +15,7 @@ Team::Team(string name)
 	this->Goals = 0;
 	this->numPlayers = 0;
 }
-Team::~Team()
+Team::~Team()//
 {
 }
 
