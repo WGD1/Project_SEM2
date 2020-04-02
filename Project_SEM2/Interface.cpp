@@ -71,17 +71,25 @@ void OnePlayerGame()
 
 	do
 	{
-		cout << "\tPlease enter the Number of Players on each team (Between 3 & 11) \n";
-		cin >> NumPlayers;
-		while (set_if_valid_number(NumPlayers, NumberOfPlayers) != 1) //currently having an error when letter and numbers are mixed 
-		{
-			cout << "You must enter just numbers and not letters\n ";
+			cout << "\tPlease enter the Number of Players on each team (Between 3 & 11): ";
 			cin >> NumPlayers;
-		}
-		Game::Get().getPlayers(0).SetNumPlayers(NumberOfPlayers);
-		Game::Get().getPlayers(1).SetNumPlayers(NumberOfPlayers);
-	} while (Game::Get().getPlayers(0).SetNumPlayers(NumberOfPlayers)!=1);
+			
+			try
+			{
+				(set_if_valid_number(NumPlayers, NumberOfPlayers)); // Checks to see if user has entered a vaid input
 
+			}
+			catch (const std::exception&)
+			{
+				cout << "you did not enter only numbers \n Please enter only numbers between 3-11: ";
+				cin >> NumPlayers;
+			}
+
+	} while (set_if_valid_number(NumPlayers, NumberOfPlayers) != 1 || Game::Get().getPlayers(0).SetNumPlayers(NumberOfPlayers)!=1);
+
+
+	Game::Get().getPlayers(0).SetNumPlayers(NumberOfPlayers);
+	Game::Get().getPlayers(1).SetNumPlayers(NumberOfPlayers);
 	for (int i = 0; i < NumberOfPlayers; i++)
 	{
 		int num = 0;
