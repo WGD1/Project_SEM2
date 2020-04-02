@@ -52,6 +52,7 @@ void OnePlayerGame()
 	cin >> gameType;
 	if (gameType == 1)
 	{
+		string temp;
 		int NumGoals = 0;
 		cout << "\tYou selected Number Of Goals\n";
 		cout << "\t How many goals would you like to play to?";
