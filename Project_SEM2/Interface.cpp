@@ -41,8 +41,8 @@ void OnePlayerGame()
 	cout << "\tYou Selected One Player Game\n" << endl;
 	Game::Get().getPlayers(1).SetTeamName("AI Player");
 	
-	string name, NumPlayers;
-	int NumberOfPlayers = 0, gameType=0;
+	string name, NumPlayers, temp;
+	int NumberOfPlayers = 0, gameType=0, NumGoals = 0,time = 0;
 
 	cout << "\tPlease enter Player ones Name: ";
 	cin >> name;
@@ -52,22 +52,29 @@ void OnePlayerGame()
 	cin >> gameType;
 	if (gameType == 1)
 	{
-		string temp;
-		int NumGoals = 0;
-		cout << "\tYou selected Number Of Goals\n";
-		cout << "\t How many goals would you like to play to?";
-		cin >> NumGoals;
-		Game::Get().set_goals_to_win(NumGoals);
-		Game::Get().set_time_to_win(-1);
+		do
+		{// Need to add in the error handling to check that its only numbers
+			temp;
+			cout << "\tYou selected Number Of Goals\n";
+			cout << "\t How many goals would you like to play to?";
+			cin >> NumGoals;
+			Game::Get().set_goals_to_win(NumGoals);
+			Game::Get().set_time_to_win(-1);
+
+		} while (Game::Get().set_goals_to_win(NumGoals) != 1);
 	}
 	else
 	{
-		int time = 0;
-		cout << "\tYou selected a timed game\n";
-		cout << "\tHow long would you like the game to last?(mins):";//
-		cin >> time;
-		Game::Get().set_goals_to_win(-1);
-		Game::Get().set_time_to_win(time);
+		do// Need to add in the error handling to check that its only numbers
+		{
+			cout << "\tYou selected a timed game\n";
+			cout << "\tHow long would you like the game to last?(mins):";//
+			cin >> time;
+			Game::Get().set_time_to_win(time);
+			Game::Get().set_goals_to_win(-1);
+;
+
+		} while (Game::Get().set_time_to_win(time)!= 1);
 	}
 
 	do
@@ -82,11 +89,11 @@ void OnePlayerGame()
 			}
 			catch (const std::exception&)
 			{
-				cout << "you did not enter only numbers \n Please enter only numbers between 3-11: ";
-				cin >> NumPlayers;
+				cout << "you did not enter only numbers";
+
 			}
 
-	} while (set_if_valid_number(NumPlayers, NumberOfPlayers) != 1 || Game::Get().getPlayers(0).SetNumPlayers(NumberOfPlayers)!=1);
+	} while ( Game::Get().getPlayers(0).SetNumPlayers(NumberOfPlayers)!=1);
 
 
 	Game::Get().getPlayers(0).SetNumPlayers(NumberOfPlayers);
@@ -107,7 +114,6 @@ void OnePlayerGame()
 	}
 
 	system("CLS"); // This will clear the screen ready for the game to being !
-	
 }
 
 void TwoPlayerGame()
@@ -116,7 +122,7 @@ void TwoPlayerGame()
 	//Team PlayerOne, PlayerTwo; // Creates two instances of team 
 	string Temp;
 
-	int NumberOfPlayers = 0, gameType = 0;
+	int NumberOfPlayers = 0, gameType = 0, NumGoals = 0, time = 0;
 	for (int i = 0; i < 2; i++) {
 		cout << "\t\tPlease enter Players " << i + 1 << " Name\n\n";
 		cin >> Temp;
@@ -125,22 +131,21 @@ void TwoPlayerGame()
 
 	do
 	{
-		cout << "\t\tPlease enter the Number of Players on each team \n\n";
+		cout << "\tPlease enter the Number of Players on each team (Between 3 & 11): ";
 		cin >> Temp;
-		while (set_if_valid_number(Temp, NumberOfPlayers) != 1) // Still throwing an error when a letter entered unsure why
+		try
 		{
-			cout << "\t\tYou must enter just numbers and not letters\n\n ";
-			cin >> Temp;
+			(set_if_valid_number(Temp, NumberOfPlayers));
+		}
+		catch (const std::exception&)
+		{
+			cout << "you did not enter only numbers";
+		}
 
-		}// want to check range of numbers that the player has entered 
-
-		
-		Game::Get().getPlayers(0).SetNumPlayers(NumberOfPlayers); //Changed this to use the NumberOfPLayers as the Set_if vaild has refernce  in it
-		Game::Get().getPlayers(1).SetNumPlayers(NumberOfPlayers);
 	} while (Game::Get().getPlayers(0).SetNumPlayers(NumberOfPlayers)!=1);
-	
-	 
 
+	Game::Get().getPlayers(0).SetNumPlayers(NumberOfPlayers); //Changed this to use the NumberOfPLayers as the Set_if vaild has refernce  in it
+	Game::Get().getPlayers(1).SetNumPlayers(NumberOfPlayers);
 
 	for (int i = 0; i < 2; i++) {
 
@@ -165,22 +170,29 @@ void TwoPlayerGame()
 	cin >> gameType;
 	if (gameType == 1)
 	{
-		int NumGoals = 0;
-		cout << "\tYou selected Number Of Goals\n";
-		cout << "\t How many goals would you like to play to?";
-		cin >> NumGoals;
-		Game::Get().set_goals_to_win(NumGoals);
-		Game::Get().set_time_to_win(-1);
+		do
+		{// Need to add in the error handling to check that its only numbers
+			Temp;
+			cout << "\tYou selected Number Of Goals\n";
+			cout << "\t How many goals would you like to play to?";
+			cin >> NumGoals;
+			Game::Get().set_goals_to_win(NumGoals);
+			Game::Get().set_time_to_win(-1);
 
+		} while (Game::Get().set_goals_to_win(NumGoals) != 1);
 	}
 	else
 	{
-		int time = 0;
-		cout << "\tYou selected a timed game\n";
-		cout << "\tHow long would you like the game to last?(mins):";
-		cin >> time;
-		Game::Get().set_goals_to_win(-1);
-		Game::Get().set_time_to_win(time);
+		do
+		{// Need to add in the error handling to check that its only numbers
+			cout << "\tYou selected a timed game\n";
+			cout << "\tHow long would you like the game to last?(mins):";//
+			cin >> time;
+			Game::Get().set_time_to_win(time);
+			Game::Get().set_goals_to_win(-1);
+			;
+
+		} while (Game::Get().set_time_to_win(time) != 1);
 	}
 
 	system("CLS");
@@ -211,7 +223,6 @@ void TwoPlayerGame()
 
 			cout << "The dice rolled " << Dice::Get().getState() << endl << endl;
 
-
 			for (int i = 0; i < 2; i++) {
 
 				cout << Game::Get().getPlayers(i).GetTeamName() << " chose your player" << endl;
@@ -222,7 +233,6 @@ void TwoPlayerGame()
 				choice[i]--;
 			}
 
-
 				cout << Game::Get().getPlayers(0).GetTeamName() << " has a remainder of " << Game::Get().get_remainder(0, choice[0]) << endl;
 					cout << Game::Get().getPlayers(1).GetTeamName() << " has a remainder of " << Game::Get().get_remainder(1, choice[1]) <<endl ;
 
@@ -230,7 +240,6 @@ void TwoPlayerGame()
 
 					cout << "Your tackle was sucessfull" << endl;
 					count++;
-
 
 				}
 				else {

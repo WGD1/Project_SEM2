@@ -26,8 +26,8 @@ public:
 	void switch_possesion();
 	int get_remainder(bool,int);
 	bool tackle(int,int,int);
-	void set_time_to_win(int);
-	void set_goals_to_win(int);
+	bool set_time_to_win(int);
+	bool set_goals_to_win(int);
 	void set_game_mode(bool);
 	void set_win_condition(bool);
 	bool get_possesion();

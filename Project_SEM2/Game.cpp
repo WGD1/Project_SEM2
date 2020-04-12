@@ -63,14 +63,30 @@ bool Game::tackle(int p1, int p2, int diceroll)
 	
 }
 
-void Game::set_time_to_win(int num)
+bool Game::set_time_to_win(int num)
 {
-	Game::time_to_win = (num * 60);
+	if (num >= 1)
+	{
+		Game::time_to_win = (num * 60);
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
 
-void Game::set_goals_to_win(int num)
+bool Game::set_goals_to_win(int num)
 {
-	Game::goals_to_win = num;
+	if (num >=1)
+	{
+		Game::goals_to_win = num;
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
 
 void Game::set_game_mode(bool mode)

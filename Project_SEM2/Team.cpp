@@ -47,7 +47,6 @@ bool Team::SetNumPlayers(int numPlayers)
 		this->numPlayers = numPlayers;
 		return true;
 	}
-	
 }
 
 int Team::GetNumPlayers()
@@ -67,7 +66,6 @@ void Team::SetPlayers(int players)
 	this->Players.push_back(players);
 
 }
-
 void Team::SetGoals()
 {
 	this->Goals = this->Goals + 1;
