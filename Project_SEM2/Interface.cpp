@@ -41,7 +41,7 @@ void OnePlayerGame()
 	cout << "\tYou Selected One Player Game\n" << endl;
 	Game::Get().getPlayers(1).SetTeamName("AI Player");
 	
-	string name, NumPlayers, temp;
+	string name, NumPlayers,d;
 	int NumberOfPlayers = 0, gameType=0, NumGoals = 0,time = 0;
 
 	cout << "\tPlease enter Player ones Name: ";
@@ -52,46 +52,36 @@ void OnePlayerGame()
 	cin >> gameType;
 	if (gameType == 1)
 	{
+		cout << "\tYou selected Number Of Goals\n";
 		do
 		{// Need to add in the error handling to check that its only numbers
-			temp;
-			cout << "\tYou selected Number Of Goals\n";
-			cout << "\t How many goals would you like to play to?";
-			cin >> NumGoals;
-			Game::Get().set_goals_to_win(NumGoals);
-			Game::Get().set_time_to_win(-1);
 
+			d = "\t How many goals would you like to play to?";
+			CheckVaildUserInput(d, NumGoals);
+			
 		} while (Game::Get().set_goals_to_win(NumGoals) != 1);
+
+		Game::Get().set_goals_to_win(NumGoals);
+		Game::Get().set_time_to_win(-1);
 	}
 	else
 	{
+		cout << "\tYou selected a timed game\n";
 		do// Need to add in the error handling to check that its only numbers
 		{
-			cout << "\tYou selected a timed game\n";
-			cout << "\tHow long would you like the game to last?(mins):";//
-			cin >> time;
-			Game::Get().set_time_to_win(time);
-			Game::Get().set_goals_to_win(-1);
-;
+			d= "\tHow long would you like the game to last?(mins):";
+			CheckVaildUserInput(d, time);
 
 		} while (Game::Get().set_time_to_win(time)!= 1);
+		Game::Get().set_time_to_win(time);
+		Game::Get().set_goals_to_win(-1);
+
 	}
 
 	do
 	{
-			cout << "\tPlease enter the Number of Players on each team (Between 3 & 11): ";
-			cin >> NumPlayers;
-			
-			try
-			{
-				(set_if_valid_number(NumPlayers, NumberOfPlayers)); // Checks to see if user has entered a vaid input
-
-			}
-			catch (const std::exception&)
-			{
-				cout << "you did not enter only numbers";
-
-			}
+		 d="\tPlease enter the Number of Players on each team (Between 3 & 11): ";
+		 CheckVaildUserInput(d,NumberOfPlayers);
 
 	} while ( Game::Get().getPlayers(0).SetNumPlayers(NumberOfPlayers)!=1);
 
@@ -119,8 +109,8 @@ void OnePlayerGame()
 void TwoPlayerGame()
 {
 	cout << "\t\tYou Selected A Two Player Game\n\n" << endl;
-	//Team PlayerOne, PlayerTwo; // Creates two instances of team 
-	string Temp;
+	
+	string Temp,display;
 
 	int NumberOfPlayers = 0, gameType = 0, NumGoals = 0, time = 0;
 	for (int i = 0; i < 2; i++) {
@@ -131,20 +121,12 @@ void TwoPlayerGame()
 
 	do
 	{
-		cout << "\tPlease enter the Number of Players on each team (Between 3 & 11): ";
-		cin >> Temp;
-		try
-		{
-			(set_if_valid_number(Temp, NumberOfPlayers));
-		}
-		catch (const std::exception&)
-		{
-			cout << "you did not enter only numbers";
-		}
+		display = "\tPlease enter the Number of Players on each team (Between 3 & 11): ";
+		CheckVaildUserInput(display, NumberOfPlayers);
 
 	} while (Game::Get().getPlayers(0).SetNumPlayers(NumberOfPlayers)!=1);
 
-	Game::Get().getPlayers(0).SetNumPlayers(NumberOfPlayers); //Changed this to use the NumberOfPLayers as the Set_if vaild has refernce  in it
+	Game::Get().getPlayers(0).SetNumPlayers(NumberOfPlayers); 
 	Game::Get().getPlayers(1).SetNumPlayers(NumberOfPlayers);
 
 	for (int i = 0; i < 2; i++) {
@@ -170,29 +152,29 @@ void TwoPlayerGame()
 	cin >> gameType;
 	if (gameType == 1)
 	{
+		cout << "\tYou selected Number Of Goals\n";
 		do
-		{// Need to add in the error handling to check that its only numbers
-			Temp;
-			cout << "\tYou selected Number Of Goals\n";
-			cout << "\t How many goals would you like to play to?";
-			cin >> NumGoals;
-			Game::Get().set_goals_to_win(NumGoals);
-			Game::Get().set_time_to_win(-1);
+		{
+			display = "\t How many goals would you like to play to?";
+			CheckVaildUserInput(display, NumGoals); 
 
 		} while (Game::Get().set_goals_to_win(NumGoals) != 1);
+		Game::Get().set_goals_to_win(NumGoals);
+		Game::Get().set_time_to_win(-1);
+
 	}
 	else
 	{
+		cout << "\tYou selected a timed game\n";
 		do
 		{// Need to add in the error handling to check that its only numbers
-			cout << "\tYou selected a timed game\n";
-			cout << "\tHow long would you like the game to last?(mins):";//
-			cin >> time;
-			Game::Get().set_time_to_win(time);
-			Game::Get().set_goals_to_win(-1);
-			;
+
+			display = "\tHow long would you like the game to last?(mins):";
+			CheckVaildUserInput(display, time);
 
 		} while (Game::Get().set_time_to_win(time) != 1);
+		Game::Get().set_time_to_win(time);
+		Game::Get().set_goals_to_win(-1);
 	}
 
 	system("CLS");

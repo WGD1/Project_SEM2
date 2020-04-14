@@ -1,5 +1,5 @@
 #include "Error_Handeling.h"
-
+#include <iostream>
 
 bool set_if_valid_number(string n, int& target)
 {
@@ -18,4 +18,22 @@ bool set_if_valid_number(string n, int& target)
 	}
 }
 	
+void CheckVaildUserInput(string display ,int& target)
+{
+	string temp;
+	cout << display;
+	cin >> temp;
+
+	try
+	{
+		(set_if_valid_number(temp, target)); // Checks to see if user has entered a vaid input
+
+	}
+	catch (const std::exception&)
+	{
+		cout << "you did not enter only numbers\n";
+
+	}
+
+}
 
